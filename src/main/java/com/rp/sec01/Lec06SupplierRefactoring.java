@@ -18,6 +18,8 @@ public class Lec06SupplierRefactoring {
         Util.sleepSeconds(4);
     }
 
+    // put business logic inside the supplier, so it gets executed lazily
+    // now when we call getName(), it simply builds the pipeline, but it doesn't execute the pipeline
     private static Mono<String> getName(){
         System.out.println("entered getName method");
         return Mono.fromSupplier(() -> {
