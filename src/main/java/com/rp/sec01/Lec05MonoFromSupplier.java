@@ -13,6 +13,8 @@ public class Lec05MonoFromSupplier {
         // use just only when you have data already
        // Mono<String> mono = Mono.just(getName());
 
+
+        // two ways to do lazy mono initialisation rather than use Mono.just()
         Supplier<String> stringSupplier = () -> getName();
         Mono<String> mono = Mono.fromSupplier(stringSupplier);
         mono.subscribe(
