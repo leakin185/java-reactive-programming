@@ -9,17 +9,16 @@ public class Lec06SupplierRefactoring {
     public static void main(String[] args) {
 
         getName();
-        String name = getName()
+        getName()
                 .subscribeOn(Schedulers.boundedElastic())
-                .block();
-        System.out.println(name);
+                .subscribe(Util.onNext());
         getName();
 
         Util.sleepSeconds(4);
     }
 
-    // put business logic inside the supplier, so it gets executed lazily
-    // now when we call getName(), it simply builds the pipeline, but it doesn't execute the pipeline
+    // put business logic inside the supplier, so it gets executed lazily (does not get blocked)
+    // now when we call getName(), it simply builds the pipeline, but it doesn't execute the pipeline until somebody subscribes to the publisher.
     private static Mono<String> getName(){
         System.out.println("entered getName method");
         return Mono.fromSupplier(() -> {
